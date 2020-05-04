@@ -18,17 +18,16 @@ export class Pokemons extends Component {
   }
 
   render() {
-    var counter = 0;
     if (!this.state.isloaded) {
       return <div>Loading...</div>;
     } else {
       return (
         <div className="App">
           <ul>
-            {this.state.pokemons.map((pokemon) => (
-              <React.Fragment>
+            {this.state.pokemons.map((pokemon, index) => (
+              <React.Fragment key={index}>
                 <p>{pokemon.name}</p>
-                <Link to="/pokemon/" {...counter}>
+                <Link key={index} to={"/pokemon/" + (index + 1)}>
                   Details
                 </Link>
               </React.Fragment>
