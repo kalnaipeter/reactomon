@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-export class PokemonDetail extends Component {
+class PokemonDetail extends Component {
   state = {
     isloaded: false,
-    pokemon: [],
+    // abilities: [],
+    height: "",
+    weight: "",
   };
 
   componentDidMount() {
@@ -14,7 +16,8 @@ export class PokemonDetail extends Component {
     axios.get(`https://pokeapi.co/api/v2/pokemon/${lastSeg}`).then((res) =>
       this.setState({
         isloaded: true,
-        pokemon: res.data.abilities,
+        height: res.data.height,
+        weight: res.data.weight,
       })
     );
   }
@@ -25,7 +28,17 @@ export class PokemonDetail extends Component {
     } else {
       return (
         <div className="App">
-          <p>asd</p>
+          {/* {this.state.abilities.map((ability) => (
+            ability === "ability"){
+              ability.map((data) => (<p>{data.name}</p>))
+            }))} */}
+          <p>Pokemon's height is {this.state.height}</p>
+          <p>Pokemon's weight is {this.state.weight}</p>
+          {/* {[...this.state.abilities.filter((ability) => ability === "1")].map(
+            (data) => (
+              <p>{data}</p>
+            )
+          )} */}
         </div>
       );
     }
