@@ -1,32 +1,30 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-class Types extends Component {
-  state = {
-    isloaded: false,
-    types: [],
-  };
+const Types = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [types, setTypes] = useState([]);
 
-  componentDidMount() {
-    axios.get("https://pokeapi.co/api/v2/type").then((res) =>
-      this.setState({
-        isloaded: true,
-        types: res.data.results,
-      })
-    );
-  }
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get("https://pokeapi.co/api/v2/type")
+      .then((res) => setTypes(res.data.results));
+  }, []);
 
-  render() {
+  if (!isLoading) {
+    return <div>Loading...</div>;
+  } else {
     return (
       <div className="App">
         <ul>
-          {this.state.types.map((type) => (
+          {types.map((type) => (
             <p>{type.name}</p>
           ))}
         </ul>
       </div>
     );
   }
-}
+};
 
 export default Types;
