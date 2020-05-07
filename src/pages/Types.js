@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import { useHttp } from "../hooks/http";
 
 const Types = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [types, setTypes] = useState([]);
+  const [isLoading, fetchedData] = useHttp(
+    "https://pokeapi.co/api/v2/type",
+    []
+  );
 
-  useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get("https://pokeapi.co/api/v2/type")
-      .then((res) => setTypes(res.data.results));
-  }, []);
+  const types = fetchedData ? fetchedData.data.results : [];
 
   if (!isLoading) {
     return <div>Loading...</div>;
@@ -27,4 +24,4 @@ const Types = (props) => {
   }
 };
 
-export default Types;
+export default React.memo(Types);

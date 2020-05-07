@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import PokemonImage from "../PokemonImage";
+import { useHttp } from "../hooks/http";
 
 const Pokemons = (props) => {
-  const [pokemons, setPokemons] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, fetchedData] = useHttp(
+    "https://pokeapi.co/api/v2/pokemon",
+    []
+  );
+
+  const pokemons = fetchedData ? fetchedData.data.results : [];
 
   useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get("https://pokeapi.co/api/v2/pokemon")
-      .then((res) => setPokemons(res.data.results));
+    return () => {
+      console.log("component did unmount");
+    };
   }, []);
 
   if (!isLoading) {
@@ -52,4 +55,4 @@ const loadingStyle = {
   textAlign: "right",
 };
 
-export default Pokemons;
+export default React.memo(Pokemons);

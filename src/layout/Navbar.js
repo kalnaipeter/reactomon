@@ -1,36 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import styled, { ThemeProvider } from "styled-components";
+import LinkButton from "../components/LinkButton";
+
+const theme = {
+  primary: "green",
+  secondary: "blue",
+  alert: "red",
+};
 
 function Navbar() {
   return (
-    <div>
-      <img src={require("./pokémon.png")} alt="pokémon" style={imageStyle} />
-      <br />
-      <br />
-      <Link style={linkStyle} to="/">
-        Home
-      </Link>{" "}
-      <Link style={linkStyle} to="/pokemons">
-        Pokemons
-      </Link>{" "}
-      <Link style={linkStyle} to="/types">
-        Types
-      </Link>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div>
+        <img src={require("./pokémon.png")} alt="pokémon" style={imageStyle} />
+        <br />
+        <br />
+        <LinkButton color="primary" to="/">
+          Home
+        </LinkButton>{" "}
+        <LinkButton color="secondary" to="/pokemons">
+          Pokemons
+        </LinkButton>{" "}
+        <LinkButton color="secondary" to="/types">
+          Types
+        </LinkButton>
+      </div>
+    </ThemeProvider>
   );
 }
-
-const linkStyle = {
-  backgroundColor: "#0000FFFF",
-  color: "white",
-  padding: 14,
-  textAlign: "center",
-  textDecoration: "none",
-  display: "inline - block",
-  borderRadius: 70,
-  marginRight: 10,
-  marginLeft: 10,
-};
 
 const imageStyle = {
   width: 560,

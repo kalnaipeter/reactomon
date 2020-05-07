@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+import { useHttp } from "../hooks/http";
 
 const PokemonDetail = (props) => {
-  const [height, setHeight] = useState([]);
-  const [weight, setWeight] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  var url = window.location.href.replace(/\/$/, "");
+  var lastSeg = url.substr(url.lastIndexOf("/") + 1);
 
-  useEffect(() => {
-    var url = window.location.href.replace(/\/$/, "");
-    var lastSeg = url.substr(url.lastIndexOf("/") + 1);
+  const [isLoading, fetchedData] = useHttp(
+    `https://pokeapi.co/api/v2/pokemon/${lastSeg}`,
+    []
+  );
 
-    setIsLoading(true);
-    axios.get(`https://pokeapi.co/api/v2/pokemon/${lastSeg}`).then((res) => {
-      setWeight(res.data.weight);
-      setHeight(res.data.height);
-    });
-  }, []);
+  const pokemonData = fetchedData
+    ? {
+        weight: fetchedData.data.weight,
+        height: fetchedData.data.height,
+      }
+    : [];
 
   if (!isLoading) {
     return <div>Loading...</div>;
@@ -26,8 +26,8 @@ const PokemonDetail = (props) => {
             ability === "ability"){
               ability.map((data) => (<p>{data.name}</p>))
             }))} */}
-        <p>Pokemon's height is {height}</p>
-        <p>Pokemon's weight is {weight}</p>
+        <p>Pokemon's height is {pokemonData.height}</p>
+        <p>Pokemon's weight is {pokemonData.weight}</p>
         {/* {[...this.state.abilities.filter((ability) => ability === "1")].map(
             (data) => (
               <p>{data}</p>
@@ -38,4 +38,4 @@ const PokemonDetail = (props) => {
   }
 };
 
-export default PokemonDetail;
+export default React.memo(PokemonDetail);
