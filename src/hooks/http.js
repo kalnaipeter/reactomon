@@ -7,7 +7,16 @@ export const useHttp = (url, dependencies) => {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(url).then((res) => setFetchedData(res));
+    axios
+      .get(url)
+      .then((res) => {
+        setFetchedData(res);
+      })
+      .catch((err) => {
+        alert("Oops! Something went wrong.");
+        console.log(err);
+        setIsLoading(false);
+      });
   }, dependencies);
 
   return [isLoading, fetchedData];

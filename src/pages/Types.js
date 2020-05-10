@@ -1,5 +1,23 @@
 import React from "react";
 import { useHttp } from "../hooks/http";
+import styled from "styled-components";
+
+const StyledTypeList = styled.div`
+  display: block;
+  padding: 40px;
+  width: 960px;
+  margin: auto;
+  border-radius: 20px;
+  background-color: ${(props) => props.theme.ListBackgroundColor};
+  & li {
+    list-style-type: none;
+    text-align: center;
+  }
+  & h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+`;
 
 const Types = (props) => {
   const [isLoading, fetchedData] = useHttp(
@@ -13,13 +31,14 @@ const Types = (props) => {
     return <div>Loading...</div>;
   } else {
     return (
-      <div className="App">
+      <StyledTypeList>
+        <h2>Pokemon Types</h2>
         <ul>
-          {types.map((type) => (
-            <p>{type.name}</p>
+          {types.map((type, index) => (
+            <li key={index}>{type.name}</li>
           ))}
         </ul>
-      </div>
+      </StyledTypeList>
     );
   }
 };

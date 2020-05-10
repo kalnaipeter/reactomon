@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import PokemonImage from "../PokemonImage";
 import { useHttp } from "../hooks/http";
+import PokemonCard from "../components/PokemonCard";
 
 const Pokemons = (props) => {
   const [isLoading, fetchedData] = useHttp(
@@ -21,33 +20,21 @@ const Pokemons = (props) => {
     return <div style={loadingStyle}>Loading...</div>;
   } else {
     return (
-      <div className="App">
-        <ul>
-          {pokemons.map((pokemon, index) => (
-            <React.Fragment key={index}>
-              <div style={pokemonStyle}>
-                <p>{pokemon.name}</p>
-                <PokemonImage url={pokemon.url} />
-                <br />
-                <Link key={index} to={"/pokemon/" + (index + 1)}>
-                  Details
-                </Link>
-              </div>
-            </React.Fragment>
-          ))}
-        </ul>
-      </div>
+      <ul>
+        {pokemons.map((pokemon, index) => (
+          <PokemonCard
+            key={index}
+            name={pokemon.name}
+            url={pokemon.url}
+            index={index}
+            id={pokemon.url
+              .replace(/\/$/, "")
+              .substr(pokemon.url.replace(/\/$/, "").lastIndexOf("/") + 1)}
+          />
+        ))}
+      </ul>
     );
   }
-};
-
-const pokemonStyle = {
-  backgroundColor: "#FFFF00",
-  width: 200,
-  float: "left",
-  padding: 20,
-  margin: 30,
-  borderRadius: 20,
 };
 
 const loadingStyle = {
