@@ -8,14 +8,10 @@ const StyledTypeList = styled.div`
   width: 960px;
   margin: auto;
   border-radius: 20px;
-  background-color: ${(props) => props.theme.ListBackgroundColor};
+  background-color: red;
   & li {
     list-style-type: none;
     text-align: center;
-  }
-  & h2 {
-    text-align: center;
-    margin-bottom: 20px;
   }
 `;
 

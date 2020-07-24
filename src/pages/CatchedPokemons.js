@@ -4,7 +4,6 @@ import PokemonCard from "../components/PokemonCard";
 
 const CatchedPokemons = (props) => {
   const { catchedPokemons } = useContext(CatchThemAllContext);
-  console.log(catchedPokemons.map((pokemon) => pokemon));
 
   return (
     <ul>

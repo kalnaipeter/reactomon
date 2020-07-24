@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useHttp } from "../hooks/http";
 import PokemonCard from "../components/PokemonCard";
+import LoadingStyle from "../components/LoadingStyle";
 
 const Pokemons = (props) => {
   const [isLoading, fetchedData] = useHttp(
@@ -17,7 +18,7 @@ const Pokemons = (props) => {
   }, []);
 
   if (!isLoading) {
-    return <div style={loadingStyle}>Loading...</div>;
+    return <LoadingStyle>Loading...</LoadingStyle>;
   } else {
     return (
       <ul>
@@ -35,11 +36,6 @@ const Pokemons = (props) => {
       </ul>
     );
   }
-};
-
-const loadingStyle = {
-  size: 200,
-  textAlign: "right",
 };
 
 export default React.memo(Pokemons);

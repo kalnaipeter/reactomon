@@ -59,3 +59,5 @@ const PokemonDetail = (props) => {
 };
 
 export default React.memo(PokemonDetail);
+
+
